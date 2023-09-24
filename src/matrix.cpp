@@ -68,7 +68,7 @@ Matrix Matrix::euler(Vector v) {
 	 * 
 	 */
 
-	return Matrix(new float[16]{
+	return Matrix(new float[]{
 			coshf(v.y)*cosf(v.u),	sinhf(v.x)*sinhf(v.y)*cosf(v.u)-coshf(v.x)*sinf(v.u),	coshf(v.x)*sinhf(v.y)*cosf(v.u)+sinhf(v.x)*sinf(v.u),	0.0f,
 			coshf(v.y)*sinf(v.u),	sinhf(v.x)*sinhf(v.y)*sinf(v.u)+coshf(v.x)*cosf(v.u),	coshf(v.x)*sinhf(v.y)*sinf(v.u)+sinhf(v.x)*cosf(v.u),	0.0f,
 			sinhf(v.y),		sinhf(v.x)*coshf(v.y),					coshf(v.x)*coshf(v.y),					0.0f,

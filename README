@@ -1,0 +1,13 @@
+dichron-engine made by blockmath_2048.
+
+
+There are basically no comments. <b>Abandon Hope All Ye Who Enter Here.</b>
+
+
+Makefiles hopefully included
+
+
+Maybe install FMT and add a #define HAVE_FMT for it if you want to see stuff be pretty
+
+
+Licensed under the standard MIT open-source license (credit me if you use this)

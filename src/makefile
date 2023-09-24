@@ -1,9 +1,11 @@
 
-core: vector.o matrix.o
-	gcc -o vector.o matrix.o
+
+
+dichron-core: main.cpp vector.o matrix.o
+	$(CXX) main.cpp vector.o matrix.o -o main -lm $(shell pkg-config glfw3 glew --cflags --libs --static)
 
 vector.o: vector.cpp
-	gcc -c vector.cpp
+	$(CXX) -c vector.cpp
 
 matrix.o: matrix.cpp
-	gcc -c matrix.cpp
+	$(CXX) -c matrix.cpp
