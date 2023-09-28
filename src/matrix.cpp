@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <stdio.h>
 
 Matrix::Matrix(float *_mat) {
 	mat = (float *)calloc(16, sizeof(float));	
@@ -21,7 +22,7 @@ Matrix::Matrix(Vector _vo, Vector _vi) {
 }
 
 Matrix::~Matrix() {
-	free(mat);
+	//free(mat);
 }
 
 Matrix Matrix::operator+(Matrix o) {
@@ -39,7 +40,18 @@ Vector Matrix::operator*(Vector o) {
 }
 
 Matrix Matrix::operator*(Matrix o) {
-	// todo: this
+	Matrix m = Matrix();
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			m.mat[i*4 + j] = 0;
+			for (int k = 0; k < 4; k++) {
+				m.mat[i*4 + j] += mat[i*4 + k] * o.mat[k*4 + j];
+			}
+		}
+	}
+
+	return m;
 }
 
 Matrix Matrix::euler(Vector v) {
@@ -78,4 +90,9 @@ Matrix Matrix::euler(Vector v) {
 
 Matrix Matrix::inverse(Matrix m) {
 	// todo: this
+	fprintf(stderr, "Unimplemented: Matrix::inverse()\n");
+}
+
+float* Matrix::matrix() {
+	return mat;
 }

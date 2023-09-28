@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdlib.h>
 #include <string.h>
 #include <cmath>
@@ -20,4 +22,6 @@ public:
 	
 	static Matrix euler(Vector v);
 	static Matrix inverse(Matrix m);
+
+	float* matrix();
 };

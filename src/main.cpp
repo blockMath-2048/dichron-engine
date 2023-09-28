@@ -9,6 +9,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "vector.h"
+#include "matrix.h"
+
 GLuint CompileShader(int type, const char *filename) {
 	GLuint shaderID = glCreateShader(type);
 	
@@ -102,6 +105,8 @@ int main(int argc, const char *argv[]) {
 	}
 	
 	GLuint programID = LoadShaders("shaders/vertex.glsl", "shaders/fragment.glsl");
+	
+	GLuint shaderMatrixID = glGetUniformLocation(programID, "renderMatrix");
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
@@ -121,13 +126,26 @@ int main(int argc, const char *argv[]) {
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	
+	
+	Vector cameraAngle = Vector(0.0f, 0.0f, 0.0f);
+	Vector cameraPosition = Vector(0.0f, 0.0f, -1.0f);
+	Matrix offsetMatrix = Matrix(cameraPosition); 
+
+	Matrix cameraMatrix;
+
 
 	do {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw whatever the fuck we want here
-		
+		cameraMatrix = Matrix::euler(cameraAngle) * offsetMatrix;
+
+
+
 		glUseProgram(programID);
+		
+		glUniformMatrix4fv(shaderMatrixID, 1, GL_FALSE, cameraMatrix.matrix());
 
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -143,7 +161,6 @@ int main(int argc, const char *argv[]) {
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDisableVertexAttribArray(0);
 		
-		glUseProgram(0);
 
 		// swap buffers and poll
 		glfwSwapBuffers(window);

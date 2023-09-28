@@ -2,7 +2,8 @@
 
 layout(location = 0) in vec3 vertexPosition;
 
+uniform mat4 renderMatrix;
+
 void main(){
-	gl_Position.xyz = vertexPosition;
-	gl_Position.w = 1.0;
+	gl_Position = renderMatrix * vec4(vertexPosition, 1);
 }
